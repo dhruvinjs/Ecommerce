@@ -1,41 +1,52 @@
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
     <link rel="stylesheet" href="style.css">
-        <body>
-            <div class="contain">
-                <h1>Generate a <br> Random Password</h1>
-                <div class="display">
-                  <input class="input" type='text' placeholder="password">
-              <button class="copy">    <img src="copy-icon-vector-illustration.jpg">
-              </button>
-                </div>
-                <button onclick="generate()" class="generate-btn">Generate Password</button>
-                        </div>
-                        <script>
-                            var password=document.querySelector('.input')
-                            const upper='ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-                            var copy=document.querySelector('.copy')
-                            const lower='abcdefghijklmnopqrstuvwxyz'
-                            const number='0123456789'
-                            const special='!@#$%^&*() ~,;:.{}<>[]'
-                            const length=12
-                            const gen=document.querySelector('.generate-btn')
-                            // gen.addEventListener('click',generate())
-                           function generate(){
-                                var pass=""
-                            pass+=upper[Math.floor(Math.random() * upper.length)]
-                            pass+=lower[Math.floor(Math.random() *lower.length)]
-                            pass+=number[Math.floor(Math.random() * number.length)]
-                            pass+=special[Math.floor(Math.random() * special.length)]    
-                        const allChars=upper+lower+number+special;
-                        while(length>pass.length){
-                                pass+=allChars[Math.floor(Math.random()*allChars.length)]
-                        }
-                        password.value=pass
-                        }
-                        copy.addEventListener('click',function(){
-                            password.select();
-                            document.execCommand("copy");
-                        })
-                        </script>
-                    </body>
-</html>     
+</head>
+<body>
+    <div class="contain">
+        <h1>Generate a <br> Random Password</h1>
+        <div class="display">
+            <input class="input" type='text' placeholder="password" readonly>
+            <button class="copy">
+                <img src="copy-icon-vector-illustration.jpg" alt="Copy">
+            </button>
+        </div>
+        <button onclick="generate()" class="generate-btn">Generate Password</button>
+    </div>
+
+    <script>
+        const passwordInput = document.querySelector('.input');
+        const upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const lower = 'abcdefghijklmnopqrstuvwxyz';
+        const number = '0123456789';
+        const special = '!@#$%^&*()~,;:.{}<>[]';
+        const length = 12;
+        const copyButton = document.querySelector('.copy');
+
+        function generate() {
+            let pass = "";
+            pass += upper[Math.floor(Math.random() * upper.length)];
+            pass += lower[Math.floor(Math.random() * lower.length)];
+            pass += number[Math.floor(Math.random() * number.length)];
+            pass += special[Math.floor(Math.random() * special.length)];
+
+            const allChars = upper + lower + number + special;
+
+            while (pass.length < length) {
+                pass += allChars[Math.floor(Math.random() * allChars.length)];
+            }
+
+            passwordInput.value = pass;
+        }
+
+        copyButton.addEventListener('click', function() {
+            passwordInput.select();
+            document.execCommand("copy");
+            alert("Password copied to clipboard!");
+        });
+    </script>
+</body>
+</html>
